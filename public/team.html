@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000066">
+  <title>WHO'S IN?</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚽</text></svg>">
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="page">
+    <header class="banner">
+      <svg class="ball" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="47" fill="#fff" stroke="#000" stroke-width="4"/>
+        <path d="M50 30 69 44 62 66H38L31 44Z" fill="#000"/>
+        <path d="M50 30V5M69 44 93 36M62 66 77 87M38 66 23 87M31 44 7 36" stroke="#000" stroke-width="4"/>
+        <path d="M38 5 50 3 62 5 50 13ZM88 22 96 42 86 42ZM12 22 4 42 14 42ZM66 92 82 80 76 92ZM34 92 18 80 24 92Z" fill="#000"/>
+      </svg>
+      <div>
+        <h1 class="logo"><a href="/">WHO'S IN?</a></h1>
+        <p class="subtitle">the official <span id="team-name">team</span> attendance page</p>
+      </div>
+    </header>
+
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>★ WELCOME 2 THE PAGE ★ TELL US WHAT GAMES U R MISSING ★ NO EXCUSES (OK SOME EXCUSES) ★ BRING SHIN GUARDS ★</span>
+        <span>★ WELCOME 2 THE PAGE ★ TELL US WHAT GAMES U R MISSING ★ NO EXCUSES (OK SOME EXCUSES) ★ BRING SHIN GUARDS ★</span>
+      </div>
+    </div>
+
+    <main>
+      <section class="window" id="signin" hidden>
+        <div class="titlebar">
+          <span>sign_in.exe</span>
+          <span class="titlebar-buttons" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+        </div>
+        <div class="window-body">
+          <form id="signin-form">
+            <label for="name-input">Type ur name. That's it. That's the login.</label>
+            <div class="signin-row">
+              <input id="name-input" name="name" type="text" maxlength="30" autocomplete="given-name" autocapitalize="words" required>
+              <button class="btn" type="submit">ENTER &gt;&gt;</button>
+            </div>
+          </form>
+          <div id="existing" hidden>
+            <p class="hint">Already on the list? Tap ur name:</p>
+            <div class="chips" id="existing-names"></div>
+          </div>
+        </div>
+      </section>
+
+      <div id="app" hidden>
+        <p class="whoami">
+          Logged in as <strong id="me"></strong>
+          <button class="link" id="switch-user" type="button">[not u?]</button>
+        </p>
+
+        <div class="invite">
+          <label for="invite-url">Send this link 2 ur team:</label>
+          <div class="invite-row">
+            <input class="field" id="invite-url" type="text" readonly>
+            <button class="btn" id="copy-link" type="button">COPY</button>
+          </div>
+        </div>
+
+        <section class="window">
+          <div class="titlebar">
+            <span>schedule.exe</span>
+            <span class="titlebar-buttons" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+          </div>
+          <div class="window-body">
+            <p class="hint">You're marked <b class="in-text">IN</b> for everything. Tap any game u can't make and it goes <b class="out-text">RED</b>. Saves automatically.</p>
+            <ol class="games" id="games"></ol>
+            <button class="link" id="edit-open" type="button">[edit team name + schedule]</button>
+          </div>
+        </section>
+
+        <section class="window" id="edit-window" hidden>
+          <div class="titlebar">
+            <span>edit_schedule.exe</span>
+            <span class="titlebar-buttons" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+          </div>
+          <div class="window-body">
+            <form id="edit-form">
+              <p class="hint">Anybody with the link can change this, so don't be weird about it.</p>
+              <label class="form-label" for="team-input">Team name</label>
+              <input class="field" id="team-input" type="text" maxlength="40" required>
+              <p class="form-label">Schedule</p>
+              <div id="schedule-editor"></div>
+              <div class="form-actions">
+                <button class="btn" type="submit">SAVE</button>
+                <button class="btn" id="edit-cancel" type="button">NEVERMIND</button>
+              </div>
+            </form>
+          </div>
+        </section>
+
+        <section class="window">
+          <div class="titlebar">
+            <span>the_squad.txt</span>
+            <span class="titlebar-buttons" aria-hidden="true"><i>_</i><i>□</i><i>×</i></span>
+          </div>
+          <div class="window-body">
+            <p class="hint">Everybody who's checked in so far. If someone's not on here, they haven't signed up yet, so go bug them.</p>
+            <ul class="squad" id="squad"></ul>
+            <button class="link" id="remove-me" type="button">[typo in ur name? remove me from the list]</button>
+            <div class="remove-confirm" id="remove-confirm" hidden>
+              <p>Remove <b id="remove-name"></b> from the list? Ur marked games go with it.</p>
+              <button class="btn" id="remove-yes" type="button">YES, REMOVE ME</button>
+              <button class="btn" id="remove-no" type="button">NEVERMIND</button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <p class="status" id="status" role="status"></p>
+    </main>
+
+    <footer class="footer">
+      <div class="counter-wrap">
+        <span>U R VISITOR #</span>
+        <span class="counter" id="hits">000000</span>
+      </div>
+      <aside class="ads" aria-label="Advertisements">
+        <p class="ads-label">~ ADVERTISEMENTS ~</p>
+        <div class="ads-grid">
+          <a class="ad ad-winner" href="https://www.youtube.com/watch?v=Aq5WXmQQooo" target="_blank" rel="noopener noreferrer"><b>CONGRATULATIONS!!!</b><span>U R the 1,000,000th visitor</span></a>
+          <a class="ad ad-y2k" href="https://www.youtube.com/watch?v=Aq5WXmQQooo" target="_blank" rel="noopener noreferrer"><b>ARE YOU Y2K READY?</b><span>Find out NOW &gt;&gt;</span></a>
+          <a class="ad ad-ram" href="https://www.youtube.com/watch?v=Aq5WXmQQooo" target="_blank" rel="noopener noreferrer"><b>NEED MORE RAM?</b><span>Click here!!!</span></a>
+          <a class="ad ad-ringtone" href="https://www.youtube.com/watch?v=Aq5WXmQQooo" target="_blank" rel="noopener noreferrer"><b>FREE RINGTONES</b><span>Get Crazy Frog on ur Nokia</span></a>
+        </div>
+      </aside>
+      <p><a href="/">Start a page 4 ur own team</a></p>
+      <p>Best viewed in Netscape Navigator 4.0 or ur phone</p>
+    </footer>
+  </div>
+  <script src="/shared.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
